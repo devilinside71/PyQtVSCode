@@ -3,9 +3,13 @@
 
 
 import os
+import platform
 
 
 def main():
+    pyuic_cmd_win = 'pylupdate5 '
+    pyuic_cmd_mac = 'pylupdate5 '
+    pyuic_cmd_linux = 'pylupdate5 '
     parent_path = os.path.join(__file__, os.path.pardir)
     dir_name = os.path.abspath(parent_path)
     # print(dir_name)
@@ -21,11 +25,22 @@ def main():
     # Print the files
     # for elem in list_of_files:
     #     print(elem)
-
+    parent_path = os.path.join(__file__, os.path.pardir)
+    dir_path = os.path.abspath(parent_path)
+    print(dir_path)
     # Create command line
-    cmd_line = 'pylupdate5 '
+    cmd_line = ''
+    if platform.system() == 'Windows':
+        cmd_line = pyuic_cmd_win
+    if platform.system() == 'Darwin':
+        cmd_line = pyuic_cmd_mac
+    if platform.system() == 'Linux':
+        cmd_line = pyuic_cmd_linux
     for elem in list_of_files:
-        cmd_line += elem+' '
+        if platform.system() == 'Windows':
+            cmd_line += '"'+elem.replace(dir_path+'\\', '')+'" '
+        else:
+            cmd_line += elem+' '
     cmd_line += '-ts i18n/hu.ts'
     print(cmd_line)
     os.system(cmd_line)
