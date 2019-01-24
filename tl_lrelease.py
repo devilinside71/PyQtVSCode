@@ -1,3 +1,8 @@
+# -*- coding: utf-8 -*-
+"""Run lrelease"""
+
 import os
-from subprocess import call
-os.system("lrelease i18n/hu.ts")
+import platform
+
+if platform.system() == 'Windows':
+    os.system("lrelease i18n/hu.ts")
